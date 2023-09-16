@@ -1,6 +1,5 @@
 PHPMailer/
 phpmailer.php
-contact.sql
 contact-form.php
 vendor/
 .env
