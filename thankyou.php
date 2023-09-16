@@ -1,5 +1,9 @@
 <?php
 
+require __DIR__ . '/./vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->safeload();
+
 // Conectando a la base de datos
 $connect = mysqli_connect(
     $_ENV['DB_HOST'],
