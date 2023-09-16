@@ -4,7 +4,10 @@ require __DIR__ . '/./vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeload();
 
-// Conectando a la base de datos
+// Conectar con la base de datos (Método local)
+// $connect = mysqli_connect('localhost', 'usb', 'usb2022', 'formulatio');
+
+// Conectar con la base de datos (Usar el .env para la conexión)
 $connect = mysqli_connect(
     $_ENV['DB_HOST'],
     $_ENV['DB_USER'],
