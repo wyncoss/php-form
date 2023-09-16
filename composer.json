@@ -1,0 +1,19 @@
+{
+    "name": "r/php-form",
+    "description": "PHP Form",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "R\\PhpForm\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andres",
+            "email": "prorogsoft@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
