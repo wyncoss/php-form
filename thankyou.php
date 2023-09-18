@@ -25,20 +25,25 @@ $redb = mysqli_query($connect, $query);
 
 <!doctype html>
 <html>
-    <head>
-        <title>Thank You</title>
-    </head>
-    <body>
-    
-        <h1>¡Gracias! :)</h1>
-        <?php while ( $msgd = mysqli_fetch_assoc($redb)): ?>
-        <p>Apreciado cliente, <b><?php echo $msgd['name']; ?></b> </p>
-        <br>
-        <p>Gracias por confiar en nosotros. Su solicitud ha sido recibida y se ha abierto un ticket con código # <b><?php echo $msgd['id']; ?></b> desde el departamento de <b><?php echo $msgd['department_name']; ?></b> y será atendido por <b><?php echo $msgd['employee_name']; ?></b>. ¡Feliz día! :) </p>
-            <?php endwhile; ?>
-    </body>
+
+<head>
+    <link href="style.css" rel="stylesheet">
+    <title>Thank You</title>
+</head>
+
+<body>
+    <div class="bg-sky-200 h-screen">
+        <h1 class="font-bold">¡Gracias! :)</h1>
+        <?php while ($msgd = mysqli_fetch_assoc($redb)) : ?>
+            <p>Apreciado cliente, <b><?php echo $msgd['name']; ?></b> </p>
+            <br>
+            <p>Gracias por confiar en nosotros. Su solicitud ha sido recibida y se ha abierto un ticket con código # <b><?php echo $msgd['id']; ?></b> desde el departamento de <b><?php echo $msgd['department_name']; ?></b> y será atendido por <b><?php echo $msgd['employee_name']; ?></b>. ¡Feliz día! :) </p>
+        <?php endwhile; ?>
+    </div>
+</body>
+
 </html>
 
 <?php
-    mysqli_close($connect);
+mysqli_close($connect);
 ?>

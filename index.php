@@ -22,10 +22,10 @@ $empleados_soporte = array("Jaime Rubiano", "Maria Garcia", "Pedro Sanchez", "Ar
 $empleado_escogido_randonomicamente = $empleados_soporte[array_rand($empleados_soporte, 1)];
 
 // Obtener datos mediante POST
-$nombre = isset( $_POST['nombre'] ) ? $_POST['nombre'] : '';
-$email = isset( $_POST['email'] ) ? $_POST['email'] : '';
-$message = isset( $_POST['message'] ) ? $_POST['message'] : '';
-$departamento = isset( $_POST['departamento'] ) ? $_POST['departamento'] : '';
+$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$message = isset($_POST['message']) ? $_POST['message'] : '';
+$departamento = isset($_POST['departamento']) ? $_POST['departamento'] : '';
 // $empleado_escogido_randonomicamente = isset( $_POST['empleado_escogido_randonomicamente'] ) ? $_POST['empleado_escogido_randonomicamente'] : '';
 
 $email_error = '';
@@ -33,30 +33,25 @@ $message_error = '';
 $nombre_error = '';
 
 // Verificar errores
-if (count($_POST))
-{ 
+if (count($_POST)) {
     $errors = 0;
 
-    if ($_POST['nombre'] == '')
-    {
+    if ($_POST['nombre'] == '') {
         $nombre_error = 'Please enter a valid name';
-        $errors ++;
+        $errors++;
     }
 
-    if ($_POST['email'] == '')
-    {
+    if ($_POST['email'] == '') {
         $email_error = 'Please enter an email address';
-        $errors ++;
+        $errors++;
     }
 
-    if ($_POST['message'] == '')
-    {
+    if ($_POST['message'] == '') {
         $message_error = 'Please enter a message';
-        $errors ++;
+        $errors++;
     }
 
-    if ($errors == 0)
-    {
+    if ($errors == 0) {
         // Enviar a la base de datos
         $query = 'INSERT INTO contact (
                 name,
@@ -65,21 +60,21 @@ if (count($_POST))
                 department_name,
                 employee_name
             ) VALUES (
-                "'.addslashes($_POST['nombre']).'",
-                "'.addslashes($_POST['email']).'",
-                "'.addslashes($_POST['message']).'",
-                "'.addslashes($_POST['departamento']).'",
-                "'.($empleado_escogido_randonomicamente).'"
+                "' . addslashes($_POST['nombre']) . '",
+                "' . addslashes($_POST['email']) . '",
+                "' . addslashes($_POST['message']) . '",
+                "' . addslashes($_POST['departamento']) . '",
+                "' . ($empleado_escogido_randonomicamente) . '"
             )';
         mysqli_query($connect, $query);
 
         $message = 'You have received a contact form submission:
             
-Nombre: '.$_POST['nombre'].'
-Email: '.$_POST['email'].'
-Message: '.$_POST['email'].'
-Departamento: '.$_POST['departamento'];
-// Empleado: '.$_POST['empleado_escogido_randonomicamente'];
+Nombre: ' . $_POST['nombre'] . '
+Email: ' . $_POST['email'] . '
+Message: ' . $_POST['email'] . '
+Departamento: ' . $_POST['departamento'];
+        // Empleado: '.$_POST['empleado_escogido_randonomicamente'];
 
         // mail( 'poveda.geovanny@hotmail.com', 
         //     'Contact Form Cubmission',
@@ -87,55 +82,62 @@ Departamento: '.$_POST['departamento'];
 
         header('Location: thankyou.php');
         die();
-
     }
 }
 
 ?>
 <!doctype html>
 <html>
-    <head>
-        <title>PHP Contact Form</title>
-    </head>
-    <body>
-    
-        <h1>PHP Contact Form</h1>
 
-        <form method="post" action="">
+<head>
+    <link href="./style.css" rel="stylesheet">
+    <title>PHP Contact Form</title>
+</head>
 
-            Name:
-            <br>
-            <input type="text" name="nombre" value="<?php echo $nombre; ?>">
-            <?php echo $nombre_error; ?>
+<body>
 
-            <br><br>
-        
-            Email Address:
-            <br>
-            <input type="text" name="email" value="<?php echo $email; ?>">
-            <?php echo $email_error; ?>
 
-            <br><br>
+    <div class="bg-sky-200 grid h-screen place-items-center">
+        <div class="mx-auto max-w-[550px]">
+            <h1 class="flex items-center justify-center p-12 font-bold">PHP Contact Form</h1>
+            <form method="post" action="">
+                <div class="mb-3">
+                    Name:
+                    <br>
+                    <input class="w-full resize-none border border-gray-300 bg-white py-1 text-base font-normal transition-all duration-500 rounded-md focus:outline-none sm:focus:shadow-outline focus:border-none" type="text" name="nombre" value="<?php echo $nombre; ?>">
+                    <?php echo $nombre_error; ?>
+                </div>
+                <br><br>
+                <div class="mb-3">
+                    Email Address:
+                    <br>
+                    <input class="w-full resize-none border border-gray-300 bg-white py-1 text-base font-normal transition-all duration-500 rounded-md focus:outline-none sm:focus:shadow-outline focus:border-none" type="text" name="email" value="<?php echo $email; ?>">
+                    <?php echo $email_error; ?>
+                </div>
+                <br><br>
+                <div class="mb-3">
+                    Message:
+                    <br>
+                    <textarea class="w-full resize-none border border-gray-300 bg-white py-1 text-base font-normal transition-all duration-500 rounded-md focus:outline-none sm:focus:shadow-outline focus:border-none" name="message"><?php echo $message; ?></textarea>
+                    <?php echo $message_error; ?>
+                </div>
+                <br><br>
+                <div class="mb-3">
+                    <label for="lang">Departamento:</label>
+                    <select name="departamento" id="dep">
+                        <option value="atencioncliente">Atención al Cliente</option>
+                        <option value="soportetecnico">Soporte Técnico</option>
+                        <option value="facturacion">Facturación</option>
+                    </select>
+                </div>
 
-            Message:
-            <br>
-            <textarea name="message"><?php echo $message; ?></textarea>
-            <?php echo $message_error; ?>
+                <br><br>
+                <div class="flex items-center justify-center">
+                    <input class=" text-sky-400 cursor-pointer hover:bg-sky-900 focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 mr-2 mb-2 hover:shadow-lg transition-all duration-200 ease-in-out hover:scale-110 scale-90 gap-x-2 opacity-90 hover:opacity-100" type="submit" value="Continuar">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
 
-            <br><br>
-
-            <label for="lang">Departamento</label>
-            <select name="departamento" id="dep">
-            <option value="atencioncliente">Atención al Cliente</option>
-            <option value="soportetecnico">Soporte Técnico</option>
-            <option value="facturacion">Facturación</option></select>
-            </select>
-
-            <br><br>
-
-            <input type="submit" value="Submit">
-        
-        </form>
-    
-    </body>
 </html>

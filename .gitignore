@@ -3,3 +3,4 @@ phpmailer.php
 contact-form.php
 vendor/
 .env
+node_modules/
